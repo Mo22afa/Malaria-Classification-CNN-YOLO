@@ -1,52 +1,145 @@
-# Malaria Classification Using CNN and YOLO
+# 🦠 Malaria Classification Using CNN and YOLO
 
-## Project Overview
+Deep Learning project for malaria cell image classification using:
+
+- Custom CNN built from scratch
+- Pretrained YOLO Classification model
+
+---
+
+# 📌 Project Overview
+
 This project classifies malaria cell images into:
+
 - Parasitized
 - Uninfected
 
-using:
-1. CNN built from scratch
-2. Pretrained YOLO Classification model
+using two different Deep Learning approaches:
+
+1. CNN built manually using TensorFlow/Keras
+2. YOLO pretrained classification model using Ultralytics
+
+The goal is to compare both models in terms of:
+- Accuracy
+- Performance
+- Deep Learning architecture
 
 ---
 
-## Dataset
-Malaria Dataset from TensorFlow Datasets (TFDS)
+# 📂 Dataset
+
+Dataset used:
+- Malaria Dataset from TensorFlow Datasets (TFDS)
+
+Classes:
+- Parasitized
+- Uninfected
+
+The dataset contains microscopic cell images for malaria detection.
 
 ---
 
-## Technologies Used
+# 🧠 CNN Architecture
+
+The CNN model was built from scratch using:
+
+- Conv2D
+- MaxPooling2D
+- Flatten
+- Dense
+- Dropout
+
+Architecture:
+
+```python
+Conv2D → MaxPooling →
+Conv2D → MaxPooling →
+Conv2D → MaxPooling →
+Flatten →
+Dense →
+Dropout →
+Softmax
+```
+
+---
+
+# 🚀 YOLO Classification
+
+A pretrained YOLO Classification model was used:
+
+```python
+YOLO("yolo11n-cls.pt")
+```
+
+Transfer Learning was applied on the malaria dataset.
+
+---
+
+# 📊 Results
+
+| Model | Accuracy |
+|---|---|
+| CNN From Scratch | 95.86% |
+| YOLO Classification | 96.70% |
+
+---
+
+# 📈 Features
+
+✅ CNN built from scratch  
+✅ YOLO pretrained model  
+✅ TensorFlow Dataset loading  
+✅ Data preprocessing  
+✅ Data augmentation  
+✅ Accuracy & Loss graphs  
+✅ Confusion Matrix  
+✅ CNN vs YOLO comparison  
+✅ Prediction visualization  
+
+---
+
+# 🛠️ Technologies Used
+
 - Python
 - TensorFlow
 - Keras
 - Ultralytics YOLO
+- NumPy
 - OpenCV
-- Scikit-learn
 - Matplotlib
+- Scikit-learn
 
 ---
 
-## CNN Results
-- Accuracy: 95.86%
-- Loss: 0.1284
+# 📷 Sample Predictions
+
+The project visualizes:
+- Real labels
+- Predicted labels
+- Confidence scores
+
+for both CNN and YOLO models.
 
 ---
 
-## YOLO Results
-- Top1 Accuracy: 96.70%
-- Top5 Accuracy: 100%
+# 📌 Conclusion
+
+The CNN model achieved strong classification performance while being fully built from scratch.
+
+The pretrained YOLO model achieved slightly higher accuracy due to transfer learning and pretrained weights.
+
+YOLO provided:
+- Faster convergence
+- Better generalization
+- Higher accuracy
+
+while CNN helped understand Deep Learning fundamentals and CNN architecture design.
 
 ---
 
-## Comparison
+# 👨‍💻 Author
 
-| Model | Accuracy |
-|---|---|
-| CNN | 95.86% |
-| YOLO | 96.70% |
+Mostafa Abdelwahab
 
----
-
-## Conclusion
-YOLO achieved slightly higher accuracy due to pretrained weights and transfer learning, while CNN provided a strong understanding of deep learning fundamentals.
+GitHub:
+https://github.com/Mo22afa
