@@ -154,7 +154,7 @@ The project is provided as a Jupyter Notebook.
 2. Install the required packages if they are not already available:
 
    ```bash
-   pip install tensorflow tensorflow-datasets ultralytics opencv-python numpy matplotlib scikit-learn
+   pip install -r requirements.txt
    ```
 
 3. Run the notebook cells in order. The notebook downloads the malaria dataset through TensorFlow Datasets and prepares the directory structure needed for YOLO training.
