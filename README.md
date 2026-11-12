@@ -22,11 +22,11 @@ The comparison focuses on validation accuracy and the models' classification beh
 - **Total images:** 27,558.
 - **Classes:** Parasitized and Uninfected.
 - **Image size used by the models:** 128 × 128 pixels.
-- **Split:** 80% training (22,046 images) and 20% validation (5,512 images).
+- **Split in the latest run:** 80% training (22,046 images), 10% validation (2,756 images), and 10% held-out testing (2,756 images).
 
-The same 80/20 split is used to train and validate both models.
+The same 80/10/10 split is used for both models.
 
-> **Evaluation note:** The notebook uses the validation split during training and reports the final metrics on that same split. It does not currently contain a separate, untouched test set. Therefore, the reported results are validation results, not an independent test estimate.
+> **Evaluation note:** The latest Colab run (November 12, 2026) uses a separate test split. The GitHub notebook and historical figures may still show earlier experiment outputs until the new Colab notebook is uploaded. The held-out test results below come from that new run.
 
 ## Model 1: Custom CNN
 
@@ -72,55 +72,55 @@ The TFDS images are exported into the directory structure required by Ultralytic
 - Image size: 128 × 128
 - Batch size: 32
 - Epochs: 10
-- Dataset split: 22,046 training images and 5,512 validation images
+- Dataset split in latest run: 22,046 training, 2,756 validation, and 2,756 test images
 
 ## Results
 
-The following values are taken from the recorded notebook outputs.
+### Latest run — held-out test set (November 12, 2026)
 
-| Model | Validation Accuracy |
+The following values were read from the saved Google Colab notebook output after the dataset was split 80/10/10. They are **test-set** accuracy values, not validation accuracy.
+
+| Model | Test Accuracy |
+|---|---:|
+| Custom CNN | **95.57%** |
+| YOLO11n Classification | **96.88%** |
+
+YOLO11n scored **1.31 percentage points higher** in this run. These measurements are based on the 2,756-image test split. Further evaluation is needed before any real-world or clinical use.
+
+### Historical run — validation set (80/20)
+
+These are the earlier validation measurements and must **not** be presented as the new test results:
+
+| Model | Earlier Validation Accuracy |
 |---|---:|
 | Custom CNN | 95.86% |
 | YOLO11n Classification | 96.68% |
 
-YOLO's recorded Top-5 validation accuracy is 100%. Because this is a two-class classification task, Top-1 accuracy is the more informative metric to compare.
+### Visual Results
 
-### YOLO validation classification report
+The figures below were generated from the **earlier 80/20 run**. The latest 80/10/10 run has new plots in the user's saved Colab notebook; these historical images remain for reference until the notebook and updated visuals are published.
 
-| Class | Precision | Recall | F1-score |
-|---|---:|---:|---:|
-| Parasitized | 0.97 | 0.95 | 0.96 |
-| Uninfected | 0.95 | 0.97 | 0.96 |
-| **Weighted average** | **0.96** | **0.96** | **0.96** |
+#### Historical CNN training curves
 
-These class-level metrics are from the YOLO validation classification report recorded in the notebook.
+![Previous CNN training accuracy](results/cnn_training_accuracy.png)
 
+![Previous CNN training loss](results/cnn_training_loss.png)
 
-## Visual Results
+#### Historical confusion matrices
 
-The following figures are taken from the saved notebook outputs.
+![Previous CNN confusion matrix](results/cnn_confusion_matrix.png)
 
-### CNN Training Curves
+![Previous YOLO confusion matrix](results/yolo_confusion_matrix.png)
 
-![CNN training accuracy](results/cnn_training_accuracy.png)
+#### Historical sample predictions
 
-![CNN training loss](results/cnn_training_loss.png)
+![Previous CNN sample predictions](results/cnn_sample_predictions.png)
 
-### Confusion Matrices
+![Previous YOLO sample predictions](results/yolo_sample_predictions.png)
 
-![CNN confusion matrix](results/cnn_confusion_matrix.png)
+#### Historical comparison chart
 
-![YOLO confusion matrix](results/yolo_confusion_matrix.png)
-
-### Sample Predictions
-
-![CNN sample predictions](results/cnn_sample_predictions.png)
-
-![YOLO sample predictions](results/yolo_sample_predictions.png)
-
-### Model Comparison
-
-![CNN vs YOLO validation accuracy](results/cnn_vs_yolo_accuracy.svg)
+![Previous CNN vs YOLO validation accuracy](results/cnn_vs_yolo_accuracy.svg)
 
 ## Features
 
@@ -163,9 +163,7 @@ YOLO training can require a GPU and sufficient storage because the dataset image
 
 ## Conclusion
 
-Both models achieved validation accuracy above 95% on the recorded validation split. The custom CNN achieved **95.86%**, while YOLO11n Classification achieved **96.68%**.
-
-YOLO achieved a 0.82 percentage-point higher validation accuracy in this experiment. This comparison is limited to the current validation setup; a separate test set is needed to assess performance on unseen data more reliably.
+In the latest held-out test run (80/10/10), the custom CNN achieved **95.57% test accuracy**, while YOLO11n Classification achieved **96.88% test accuracy**, a difference of **1.31 percentage points**. These results were recorded in the user's Colab notebook and have not been independently reproduced.
 
 ## Author
 
