@@ -95,6 +95,33 @@ YOLO's recorded Top-5 validation accuracy is 100%. Because this is a two-class c
 
 These class-level metrics are from the YOLO validation classification report recorded in the notebook.
 
+
+## Visual Results
+
+The following figures are taken from the saved notebook outputs.
+
+### CNN Training Curves
+
+![CNN training accuracy](results/cnn_training_accuracy.png)
+
+![CNN training loss](results/cnn_training_loss.png)
+
+### Confusion Matrices
+
+![CNN confusion matrix](results/cnn_confusion_matrix.png)
+
+![YOLO confusion matrix](results/yolo_confusion_matrix.png)
+
+### Sample Predictions
+
+![CNN sample predictions](results/cnn_sample_predictions.png)
+
+![YOLO sample predictions](results/yolo_sample_predictions.png)
+
+### Model Comparison
+
+![CNN vs YOLO validation accuracy](results/cnn_vs_yolo_accuracy.png)
+
 ## Features
 
 - Custom CNN architecture built from scratch
