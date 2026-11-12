@@ -120,7 +120,7 @@ The following figures are taken from the saved notebook outputs.
 
 ### Model Comparison
 
-![CNN vs YOLO validation accuracy](results/cnn_vs_yolo_accuracy.png)
+![CNN vs YOLO validation accuracy](results/cnn_vs_yolo_accuracy.svg)
 
 ## Features
 
