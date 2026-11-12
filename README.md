@@ -1,145 +1,152 @@
-# 🦠 Malaria Classification Using CNN and YOLO
+# Malaria Cell Classification Using CNN and YOLO
 
-Deep Learning project for malaria cell image classification using:
+A deep learning project that classifies microscopic malaria cell images into two categories:
 
-- Custom CNN built from scratch
-- Pretrained YOLO Classification model
+- **Parasitized**
+- **Uninfected**
 
----
+The project implements and compares a custom Convolutional Neural Network (CNN) built from scratch with a pretrained YOLO11n classification model fine-tuned on the malaria dataset.
 
-# 📌 Project Overview
+## Project Overview
 
-This project classifies malaria cell images into:
+The project explores two image-classification approaches:
 
-- Parasitized
-- Uninfected
+1. **Custom CNN:** built with TensorFlow and Keras.
+2. **YOLO11n Classification:** initialized from pretrained weights and trained on the malaria dataset using Ultralytics.
 
-using two different Deep Learning approaches:
+The comparison focuses on validation accuracy and the models' classification behavior.
 
-1. CNN built manually using TensorFlow/Keras
-2. YOLO pretrained classification model using Ultralytics
+## Dataset
 
-The goal is to compare both models in terms of:
-- Accuracy
-- Performance
-- Deep Learning architecture
+- **Source:** Malaria dataset provided by TensorFlow Datasets (TFDS).
+- **Total images:** 27,558.
+- **Classes:** Parasitized and Uninfected.
+- **Image size used by the models:** 128 × 128 pixels.
+- **Split:** 80% training (22,046 images) and 20% validation (5,512 images).
 
----
+The same 80/20 split is used to train and validate both models.
 
-# 📂 Dataset
+> **Evaluation note:** The notebook uses the validation split during training and reports the final metrics on that same split. It does not currently contain a separate, untouched test set. Therefore, the reported results are validation results, not an independent test estimate.
 
-Dataset used:
-- Malaria Dataset from TensorFlow Datasets (TFDS)
+## Model 1: Custom CNN
 
-Classes:
-- Parasitized
-- Uninfected
+The CNN was designed and trained from scratch using TensorFlow/Keras.
 
-The dataset contains microscopic cell images for malaria detection.
+### Architecture
 
----
-
-# 🧠 CNN Architecture
-
-The CNN model was built from scratch using:
-
-- Conv2D
-- MaxPooling2D
-- Flatten
-- Dense
-- Dropout
-
-Architecture:
-
-```python
-Conv2D → MaxPooling →
-Conv2D → MaxPooling →
-Conv2D → MaxPooling →
-Flatten →
-Dense →
-Dropout →
-Softmax
+```text
+Input (128 × 128 × 3)
+        ↓
+Data Augmentation
+        ↓
+Conv2D (32) → MaxPooling
+        ↓
+Conv2D (64) → MaxPooling
+        ↓
+Conv2D (128) → MaxPooling
+        ↓
+Flatten
+        ↓
+Dense (128) → Dropout (0.5)
+        ↓
+Softmax (2 classes)
 ```
 
----
+### Training configuration
 
-# 🚀 YOLO Classification
+- Optimizer: Adam
+- Loss: Sparse Categorical Crossentropy
+- Batch size: 32
+- Epochs: 10
+- Data augmentation: random horizontal flip, rotation, and zoom
 
-A pretrained YOLO Classification model was used:
+## Model 2: YOLO Classification
 
-```python
-YOLO("yolo11n-cls.pt")
-```
+The project uses the pretrained `yolo11n-cls.pt` classification model from Ultralytics.
 
-Transfer Learning was applied on the malaria dataset.
+The TFDS images are exported into the directory structure required by Ultralytics, with separate training and validation folders for each class.
 
----
+### Training configuration
 
-# 📊 Results
+- Model: YOLO11n-cls
+- Image size: 128 × 128
+- Batch size: 32
+- Epochs: 10
+- Dataset split: 22,046 training images and 5,512 validation images
 
-| Model | Accuracy |
-|---|---|
-| CNN From Scratch | 95.86% |
-| YOLO Classification | 96.70% |
+## Results
 
----
+The following values are taken from the recorded notebook outputs.
 
-# 📈 Features
+| Model | Validation Accuracy |
+|---|---:|
+| Custom CNN | 95.86% |
+| YOLO11n Classification | 96.68% |
 
-✅ CNN built from scratch  
-✅ YOLO pretrained model  
-✅ TensorFlow Dataset loading  
-✅ Data preprocessing  
-✅ Data augmentation  
-✅ Accuracy & Loss graphs  
-✅ Confusion Matrix  
-✅ CNN vs YOLO comparison  
-✅ Prediction visualization  
+YOLO's recorded Top-5 validation accuracy is 100%. Because this is a two-class classification task, Top-1 accuracy is the more informative metric to compare.
 
----
+### YOLO validation classification report
 
-# 🛠️ Technologies Used
+| Class | Precision | Recall | F1-score |
+|---|---:|---:|---:|
+| Parasitized | 0.97 | 0.95 | 0.96 |
+| Uninfected | 0.95 | 0.97 | 0.96 |
+| **Weighted average** | **0.96** | **0.96** | **0.96** |
+
+These class-level metrics are from the YOLO validation classification report recorded in the notebook.
+
+## Features
+
+- Custom CNN architecture built from scratch
+- Pretrained YOLO11n classification model
+- TFDS dataset loading and preprocessing
+- Image resizing and normalization
+- Data augmentation for CNN training
+- Training and validation accuracy/loss curves
+- Confusion matrices
+- Sample predictions with confidence scores
+- CNN and YOLO validation-accuracy comparison
+
+## Technologies Used
 
 - Python
 - TensorFlow
 - Keras
+- TensorFlow Datasets
 - Ultralytics YOLO
-- NumPy
 - OpenCV
+- NumPy
 - Matplotlib
 - Scikit-learn
 
+## How to Run
+
+The project is provided as a Jupyter Notebook.
+
+1. Open **[CNN and YOLO.ipynb](./CNN%20and%20YOLO.ipynb)** in Google Colab or a Jupyter environment.
+2. Install the required packages if they are not already available:
+
+   ```bash
+   pip install tensorflow tensorflow-datasets ultralytics opencv-python numpy matplotlib scikit-learn
+   ```
+
+3. Run the notebook cells in order. The notebook downloads the malaria dataset through TensorFlow Datasets and prepares the directory structure needed for YOLO training.
+
+YOLO training can require a GPU and sufficient storage because the dataset images are exported to disk.
+
+## Conclusion
+
+Both models achieved validation accuracy above 95% on the recorded validation split. The custom CNN achieved **95.86%**, while YOLO11n Classification achieved **96.68%**.
+
+YOLO achieved a 0.82 percentage-point higher validation accuracy in this experiment. This comparison is limited to the current validation setup; a separate test set is needed to assess performance on unseen data more reliably.
+
+## Author
+
+**Mostafa Abdelwahab**
+
+- GitHub: [Mo22afa](https://github.com/Mo22afa)
+- Repository: [Malaria Classification Using CNN and YOLO](https://github.com/Mo22afa/Malaria-Classification-CNN-YOLO)
+
 ---
 
-# 📷 Sample Predictions
-
-The project visualizes:
-- Real labels
-- Predicted labels
-- Confidence scores
-
-for both CNN and YOLO models.
-
----
-
-# 📌 Conclusion
-
-The CNN model achieved strong classification performance while being fully built from scratch.
-
-The pretrained YOLO model achieved slightly higher accuracy due to transfer learning and pretrained weights.
-
-YOLO provided:
-- Faster convergence
-- Better generalization
-- Higher accuracy
-
-while CNN helped understand Deep Learning fundamentals and CNN architecture design.
-
----
-
-# 👨‍💻 Author
-
-Mostafa Abdelwahab
-
-GitHub:
-https://github.com/Mo22afa
+*This project is for educational and research purposes. It is not a medical diagnostic tool.*
